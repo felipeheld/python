@@ -12,6 +12,7 @@ class DoubleLinkNode:
         self.data = data
         self.prev = None
         self.next = None
+        self.index = None
 
 class Leaf:
 
