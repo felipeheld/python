@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
-class ListNode:
+class SLLNode:
 
     def __init__(self):
         self.data = data
         self.next = None
 
-class DoubleLinkNode:
+class DLLNode:
 
     def __init__(self, data):
         self.data = data

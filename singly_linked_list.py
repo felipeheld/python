@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from nodes import ListNode
+from nodes import SLLNode
 
 class LinkedList:
 
@@ -9,30 +9,31 @@ class LinkedList:
         self.tail = None
         self.size = 0
 
-    def __append(self, data):
-        node = ListNode(data)
-        if self.head == None:
+    def append(self, data):
+        node = SLLNode(data)
+        if self.head is None:
             self.head = self.tail = node
         else:
             self.head.next = node
             self.head = node
         self.size += 1
 
-    def __search(self, data):
-        current = self.tail
+    def search(self, data):
+        current = self.head
         while current:
             if current.data == data
                 return current
             current = current.next
-        print('no such data is stored in the list')
+        raise Exception('no such data is stored in the list')
 
-    def __remove(self, data):
-        current = self.tail
+    def remove(self, data):
+        current = self.head
         previous = current
+        while self.head == data:
+            self.head = self.head.next
         while current:
             if current.data == data
                 previous.next = current.next
-                return None
             previous = current
             current = current.next
         print('no such data is stored in the list')
