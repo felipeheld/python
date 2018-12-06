@@ -11,7 +11,7 @@ class Queue:
 
     def enqueue(self, data):
         node = SLLNode(data)
-        if self.head is not None:
+        if self.head is None:
             self.head = self.tail = node
         else:
             self.tail.next = node
@@ -20,8 +20,8 @@ class Queue:
 
     def dequeue(self):
         if self.head is not None:
-            data = head.data
-            head = head.next
+            data = self.head.data
+            self.head = self.head.next
             self.size -= 1
             return data
         else:
@@ -29,9 +29,12 @@ class Queue:
 
     def peek(self):
         if self.head is not None:
-            return head.data
+            return self.head.data
         else:
             raise Exception('Queue is empty')
 
     def isempty(self):
         return self.size == 0
+
+
+#

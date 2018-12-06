@@ -8,7 +8,6 @@ class DoublyLinkedList:
         self.head = None
         self.tail = None
         self.size = 0
-        self.sorted = False
 
     def append(self, data):
         """appends node keeping track of indexes"""
