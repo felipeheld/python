@@ -27,14 +27,17 @@ class IndexedList:
         node = Node(index)
         if self.head is None:
             self.head = self.tail = node
+            self.size += 1
         elif self.tail.index < index:
             node.prevNode = self.tail
             self.tail.nextNode = node
             self.tail = node
+            self.size += 1
         elif self.head.index > index:
             node.nextNode = self.head
             self.head.prevNode = node
             self.head = node
+            self.size += 1
         else:
             current = self.head
             reverse_search = False
@@ -143,7 +146,9 @@ class IndexedList:
 
     def search(self, index):
         if not self.empty():
+            print('enters search')
             if not self.indexed:
+                print('re_indexing')
                 self.re_index()
             if self.head.index == index:
                 return self.head
@@ -243,10 +248,11 @@ lista = IndexedList()
 #lista.insert(18)
 #lista.insert(9)
 #lista.search(9)
-for i in range(1, 1001):
+for i in range(1, 10000):
     lista.insert(i)
-lista.re_index()
 
-
-
+print(lista.search(992))
 lista.iterator()
+print(lista.search(993))
+print(lista.search(667))
+print(lista.search(113))

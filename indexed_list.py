@@ -26,6 +26,17 @@ class IndexedList:
         node = Node(index)
         if self.head is None:
             self.head = self.tail = node
+            self.size += 1
+        elif self.tail.index < index:
+            node.prevNode = self.tail
+            self.tail.nextNode = node
+            self.tail = node
+            self.size += 1
+        elif self.head.index > index:
+            node.nextNode = self.head
+            self.head.prevNode = node
+            self.head = node
+            self.size += 1
         else:
             current = self.head
             while current.jump_100 and current.jump_100.index <= index:
@@ -191,15 +202,23 @@ lista = IndexedList()
 #lista.insert(67)
 #lista.insert(66)
 #lista.insert(12)
-for i in range(1,121):
+#for i in range(1,121):
+#    lista.insert(i)
+#lista.search(50)
+#for i in range(2,120):
+#    lista.remove(i)
+#
+#lista.remove(1)
+#print(lista.head.index)
+#print(lista.tail.index)
+#lista.remove(120)
+#print(lista.empty())
+#lista.iterator()
+for i in range(1, 10000):
     lista.insert(i)
-lista.search(50)
-for i in range(2,120):
-    lista.remove(i)
 
-lista.remove(1)
-print(lista.head.index)
-print(lista.tail.index)
-lista.remove(120)
-print(lista.empty())
+print(lista.search(992))
 lista.iterator()
+#print(lista.search(993))
+#print(lista.search(667))
+#print(lista.search(113))
