@@ -146,9 +146,7 @@ class IndexedList:
 
     def search(self, index):
         if not self.empty():
-            print('enters search')
             if not self.indexed:
-                print('re_indexing')
                 self.re_index()
             if self.head.index == index:
                 return self.head
@@ -165,6 +163,7 @@ class IndexedList:
                 while current:
                     # busca iterando sobre a lista e pulando nodos a direita do nodo de iteracao (current)
                     if not reverse_search:
+                        print('right')
                         if current.next_1000:
                             while current.next_1000.index <= index:
                                 current = current.next_1000
@@ -189,6 +188,7 @@ class IndexedList:
                                 break
                     # busca iterando sobre a lista e pulando nodos a esquerda do nodo de iteracao (current)
                     else:
+                        print('left')
                         if current.prev_1000:
                             while current.prev_1000.index >= index:
                                 current = current.prev_1000
@@ -248,11 +248,7 @@ lista = IndexedList()
 #lista.insert(18)
 #lista.insert(9)
 #lista.search(9)
-for i in range(1, 10000):
+for i in range(1, 10001):
     lista.insert(i)
 
-print(lista.search(992))
-lista.iterator()
-print(lista.search(993))
-print(lista.search(667))
-print(lista.search(113))
+print(lista.search(9901))
