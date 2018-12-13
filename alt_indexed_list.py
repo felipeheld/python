@@ -257,10 +257,91 @@ class IndexedList:
         else:
             raise Exception('A lista esta vazia')
 
+    def removal_search(self, index):
+        """Busca na lista pelo nodo com indice especificado no argumento"""
+        if not self.empty():
+            if self.head.index == index:
+                return self.head
+            elif self.tail.index == index:
+                return self.tail
+            elif self.head.index > index > self.tail.index:
+                raise Exception('Indice fora dos limites da lista')
+            elif self.head == self.tail and index is not self.head.index:
+                raise Exception('Indice fora dos limites da lista')
+            #elif self.head.index > index > self.tail.index:
+            #    raise Exception('A lista nao possui um nodo com esse indice')
+            else:
+                current = self.head
+                reverse_search = False
+                if (index - self.head.index) > (self.tail.index - index):
+                    reverse_search = True
+                    current = self.tail
+                while current:
+                    # busca iterando sobre a lista e pulando nodos a direita do nodo de iteracao (current)
+                    if not reverse_search:
+                        if current.next_1000:
+                            while current.next_1000.index <= index:
+                                current = current.next_1000
+                            if (index - current.index) > (current.next_1000.index - index):
+                                current = current.next_1000
+                                reverse_search = True
+                                continue
+                        if current.next_100:
+                            while current.next_100.index <= index:
+                                current = current.next_100
+                            if (index - current.index) > (current.next_100.index - index):
+                                current = current.next_100
+                                reverse_search = True
+                                continue
+                        if current.next_10:
+                            while current.next_10.index <= index:
+                                current = current.next_10
+                        if current.nextNode:
+                            while current.nextNode.index <= index:
+                                current = current.nextNode
+                            if current.index <= index:
+                                break
+                    # busca iterando sobre a lista e pulando nodos a esquerda do nodo de iteracao (current)
+                    else:
+                        if current.prev_1000:
+                            while current.prev_1000.index >= index:
+                                current = current.prev_1000
+                            if (current.index - index) > (index - current.prev_1000.index):
+                                current = current.prev_1000
+                                reverse_search = False
+                                continue
+                        if current.prev_100:
+                            while current.prev_100.index >= index:
+                                current = current.prev_100
+                            if (current.index - index) > (index - current.prev_100.index):
+                                current = current.prev_100
+                                reverse_search = False
+                                continue
+                        if current.prev_10:
+                            while current.prev_10.index >= index:
+                                current = current.prev_10
+                        if current.prevNode:
+                            while current.index > index:
+                                current = current.prevNode
+                            if current.index <= index:
+                                break
+                            #if current.prevNode.index >= index:
+                            #    current = current.prevNode
+                            #    # devido a busca em sentido contrario e necessario avancar o nodo de iteracao mais uma vez para a esquerda
+                            #if current.prevNode.index < index:
+                            #    current = current.prevNode
+                            #    break
+                if current.index == index:
+                    return current
+                else:
+                    raise Exception('A lista nao possui um nodo com esse indice')
+        else:
+            raise Exception('A lista esta vazia')
+
     def remove(self, index):
         """Remove da lista o nodo com o indice especificado no argumento"""
         self.indexed = False
-        current = self.search(index)
+        current = self.removal_search(index)
         if current == self.head == self.tail:
             self.head = self.tail = None
         elif current == self.tail:
@@ -268,9 +349,10 @@ class IndexedList:
                 current.prevNode.prev_1000 = current.prev_1000
                 current.prevNode.prev_100 = current.prev_100
                 current.prevNode.prev_10 = current.prev_10
-                current.prev_1000.next_1000 = current.prevNode
-                current.prev_100.next_100 = current.prevNode
-                current.prev_10.next_10 = current.prevNode
+                if current.prev_1000:
+                    current.prev_1000.next_1000 = current.prevNode
+                    current.prev_100.next_100 = current.prevNode
+                    current.prev_10.next_10 = current.prevNode
             elif current.prevNode.next_10:
                 if not current.prevNode.prev_1000:
                     current.prevNode.prev_1000 = current.prev_1000
@@ -291,9 +373,10 @@ class IndexedList:
                 current.nextNode.next_1000 = current.next_1000
                 current.nextNode.next_100 = current.next_100
                 current.nextNode.next_10 = current.next_10
-                current.next_1000.prev_1000 = current.nextNode
-                current.next_100.prev_100 = current.nextNode
-                current.next_10.prev_10 = current.nextNode
+                if current.next_1000:
+                    current.next_1000.prev_1000 = current.nextNode
+                    current.next_100.prev_100 = current.nextNode
+                    current.next_10.prev_10 = current.nextNode
             elif current.nextNode.prev_10:
                 if not current.nextNode.next_1000:
                     current.nextNode.next_1000 = current.next_1000
@@ -365,7 +448,7 @@ lista = IndexedList()
 #print(lista.search(99).index)
 lista.insert(1)
 lista.insert(32)
-#lista.insert(312)
+lista.insert(312)
 #lista.insert(34)
 #lista.insert(95)
 #lista.insert(53)
@@ -374,16 +457,15 @@ lista.insert(32)
 #lista.insert(78)
 #lista.insert(98)
 #lista.insert(45)
-#lista.remove(91)
-#lista.remove(1)
+#lista.search(53)
 lista.remove(32)
-lista.insert(23)
-lista.insert(12)
-lista.remove(12)
-lista.remove(1)
+#lista.insert(23)
+#lista.insert(12)
+#lista.remove(12)
+#lista.remove(1)
 print(lista.head.index)
 print(lista.tail.index)
-lista.remove(13)
+#lista.remove(13)
 lista.iterator()
 
 #print(lista.search(90).index)
