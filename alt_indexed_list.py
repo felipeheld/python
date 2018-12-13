@@ -66,7 +66,6 @@ class IndexedList:
                 reverse_search = True
                 current = self.tail
             while current:
-                print(current.index)
                 # busca iterando sobre a lista e pulando nodos a direita do nodo de iteracao (current)
                 if not reverse_search:
                     if current.next_1000:
@@ -185,6 +184,8 @@ class IndexedList:
             elif self.tail.index == index:
                 return self.tail
             elif self.head.index > index > self.tail.index:
+                raise Exception('Indice fora dos limites da lista')
+            elif self.head == self.tail and index is not self.head.index:
                 raise Exception('Indice fora dos limites da lista')
             #elif self.head.index > index > self.tail.index:
             #    raise Exception('A lista nao possui um nodo com esse indice')
@@ -364,19 +365,25 @@ lista = IndexedList()
 #print(lista.search(99).index)
 lista.insert(1)
 lista.insert(32)
-lista.insert(312)
-lista.insert(34)
-lista.insert(95)
-lista.insert(53)
-lista.insert(94)
-lista.insert(56)
-lista.insert(78)
-lista.insert(98)
-lista.insert(45)
+#lista.insert(312)
+#lista.insert(34)
+#lista.insert(95)
+#lista.insert(53)
+#lista.insert(94)
+#lista.insert(56)
+#lista.insert(78)
+#lista.insert(98)
+#lista.insert(45)
 #lista.remove(91)
+#lista.remove(1)
+lista.remove(32)
+lista.insert(23)
+lista.insert(12)
+lista.remove(12)
 lista.remove(1)
-lista.remove(34)
-
+print(lista.head.index)
+print(lista.tail.index)
+lista.remove(13)
 lista.iterator()
 
 #print(lista.search(90).index)
